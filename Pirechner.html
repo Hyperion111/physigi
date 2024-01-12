@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<title>Pi-Rechner</title>
+<style>
+body {background-color: #ffffcc;}
+
+.button {
+  background-color: #666633;
+  color: white;
+  border: none;
+  padding: 30px 30px;
+  text-align: center;
+  font-size: 35px;
+  margin: 4px 2px;
+  cursor: pointer;}
+  
+
+</style>
+</head>
+
+
+
+
+<script>
+var Pi = 3.1;
+
+
+function berechnePi() {
+
+document.getElementById("Output").innerHTML = "Berechnung läuft!";
+
+var x = 0.3828425;
+var y = 0.7828425;
+var Gesamt = 0;
+var imKreis = 0;
+
+UeberpruefeInput();
+
+if (document.getElementById("Input").value<1){
+	document.getElementById("Input").value = 1;}
+	
+var Zahl = document.getElementById("Input").value;
+
+document.getElementById("PiKasten").style.height = "700px";
+
+
+for (var i=0; i<Zahl; i++){
+	for (var j=0; j<1000000; j++){
+	x = Math.random();
+	y = Math.random();
+	Gesamt += 1;
+	if (Math.sqrt(x*x+y*y) <= 1){
+	imKreis += 1;}
+}
+}
+Pi = 4*(imKreis/Gesamt);
+document.getElementById("Output").innerHTML = "Ergebnis:   π = " + Pi;
+document.getElementById("RechenKasten").style.display = "block";
+}
+
+
+
+
+
+
+function InfoAusklappen(){
+var Inf = document.getElementById("Infooutput");
+
+	if (Inf.style.display === "none") {
+	Inf.style.display = "block";
+	document.getElementById("InfoButton").innerHTML = "Erklärung ausblenden!";
+	document.getElementById("Infokasten").style.height = "1850px";
+	document.getElementById("Infooutput2").style.display = "none";
+	document.getElementById("InfoButton2").innerHTML = "Was ist überhaupt π?";
+	
+	} else {
+	Inf.style.display = "none";
+	document.getElementById("InfoButton").innerHTML = "Wie funktioniert das?";
+	document.getElementById("Infokasten").style.height = "350px";
+  }
+}
+
+
+
+
+
+function InfoAusklappen2(){
+var Inf2 = document.getElementById("Infooutput2");
+
+	if (Inf2.style.display == "none") {
+	Inf2.style.display = "block";
+	document.getElementById("InfoButton2").innerHTML = "Erklärung ausblenden!";
+	document.getElementById("Infokasten").style.height = "2400px";
+	document.getElementById("Infooutput").style.display = "none";
+	document.getElementById("InfoButton").innerHTML = "Wie funktioniert das?";
+	
+	} else {
+	Inf2.style.display = "none";
+	document.getElementById("InfoButton2").innerHTML = "Was ist überhaupt π?";
+	document.getElementById("Infokasten").style.height = "350px";
+  }
+}
+
+
+
+
+
+function UeberpruefeInput(){
+var Inp = document.getElementById("Input");
+var val = document.getElementById("Input").value;
+Inp.value = '';
+
+for (var i = 0; i<val.length; i++){
+	if(val.slice(i,i+1) ==0 || val.slice(i,i+1) ==1 || val.slice(i,i+1) ==2 || val.slice(i,i+1) ==3 || val.slice(i,i+1) ==4 || val.slice(i,i+1) ==5 || val.slice(i,i+1) ==6 || val.slice(i,i+1) ==7 || val.slice(i,i+1) ==8 || val.slice(i,i+1) ==9){
+		Inp.value += val.slice(i,i+1);
+	}
+}
+}
+
+function UeberpruefeInput2(){
+var Inp = document.getElementById("Rechnungsinput");
+var val = document.getElementById("Rechnungsinput").value;
+Inp.value = '';
+
+for (var i = 0; i<val.length; i++){
+	if(val.slice(i,i+1) ==0 || val.slice(i,i+1) =="." || val.slice(i,i+1) ==1 || val.slice(i,i+1) ==2 || val.slice(i,i+1) ==3 || val.slice(i,i+1) ==4 || val.slice(i,i+1) ==5 || val.slice(i,i+1) ==6 || val.slice(i,i+1) ==7 || val.slice(i,i+1) ==8 || val.slice(i,i+1) ==9){
+		Inp.value += val.slice(i,i+1);
+	}
+}
+}
+
+
+
+function berechneWeiter(){
+
+UeberpruefeInput2();
+
+if (document.getElementById("Rechnungsinput").value<=0){
+	document.getElementById("Rechnungsinput").value = 1;}
+
+var Outp = document.getElementById("Output2");
+var Inp = document.getElementById("Rechnungsinput");
+var whatToDo = document.getElementById("Selectbox").value;
+var Einheit = document.getElementById("Selectbox2").value;
+var Ergebnis = 0.3828425;
+var Einheitx = "a";
+var Einheitzahl = 0
+
+
+
+if (whatToDo == 1){
+	Ergebnis = 2*Pi*Inp.value;}
+if (whatToDo == 2){
+	Ergebnis = Pi*Inp.value*Inp.value;}
+if (whatToDo == 3){
+	Ergebnis = 4*Pi*Inp.value*Inp.value;}
+if (whatToDo == 4){
+	Ergebnis = 4/3*Pi*Inp.value*Inp.value*Inp.value;}
+
+Einheitzahl = Einheit;
+
+
+
+
+if (Einheitzahl == 1){
+Einheitx = "mm";}
+if (Einheitzahl == 2){
+Einheitx = "cm";}
+if (Einheitzahl == 3){
+Einheitx = "m";}
+if (Einheitzahl == 4){
+Einheitx = "km";}
+
+if (whatToDo == 2 ){
+Einheitx += " <sup>2</sup>"}
+if (whatToDo == 3 ){
+Einheitx += " <sup>2</sup>"}
+if (whatToDo == 4 ){
+Einheitx += " <sup>3</sup>"}
+
+Outp.innerHTML = "Ergebnis: " + Ergebnis + Einheitx;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<body>
+<center>
+
+
+<br>
+<!-- Ueberschrift -->
+<div style="width:90%; height:240px; background-color:#ccccff; border:10px; border-style:double; padding-right:20px; padding-left:20px; border-radius:20px; border-color:red;">
+<h1 style="font-size:110px; font-family:Papyrus; color:#003300; position:relative; top:-40px;"><b><u>Pi-Rechner</u></b></h1>
+</div> <br> <br> <br> <br> <br> <br> <br> 
+
+
+
+
+<!-- Indormationskasten -->
+<div style="width:90%; height:350px; background-color:#99ffcc; border-style:double; padding-right:20px; padding-left:20px; border-radius:20px; border-color:red;" id="Infokasten">
+
+<p style="font-size:40px; font-family:Times New Roman;">Mit dem unten stehenden Tool kannst du ganz einfach die Zahl π berechnen lassen! Wenn du fragen hast, klicke hier!</p> 
+
+<button onclick="InfoAusklappen()" class="button" id="InfoButton" style="margin-right:50px;">Wie funktioniert das?"</button> <button onclick="InfoAusklappen2()" class="button" id="InfoButton2" style="margin-left:50px;">Was ist überhaupt π?</button>
+
+
+
+
+<div id="Infooutput" style="display:none;"> <br> <br> <br> <br> <br> <br> <br>
+
+<h3 style="font-size:60px; font-family:Times New Roman; color:#000099;">Das funktioniert so:</h3>
+<p style="font-size:35px; font-family:Times New Roman; color:#000099; text-align: justify;">Mit einem Zufallsgenerator werden zufällige Punkte erzeugt, mit je einer x- und einer y-Koordinate von 0 bis 1. Diese Punkte sind dann zufällig über diesem Bereich verteilt. Das sogenannte "Gesetz der großen Zahlen" besagt, dass sich die Punkte bei sehr großer Anzahl fast exakt gleichmäßig anordnen. Dies geschieht umso genauer, desto mehr Punkte es sind. Mit dem "Satz des Pythagoras" kann man anschließend errechnen, ob sich die Punkte in einem gedachten Teilkreis befinden. Es werden die Punkte im und außerhalb des Kreises separat gezählt, sodass man daraus ein Verhältnis errechnen kann (siehe Bild).</p> 
+<img src="https://1.bp.blogspot.com/-ahP9Ra696Ss/TxnGsxBOoEI/AAAAAAAAAPI/Wa4peE1Kfq0/s1600/piMonteCarlo.png" alt="Hier sollte eine entsprechende Grafik sein!">
+<p style="font-size:20px; font-family:Times New Roman; color:#000099;">Diagramm mit den eingezeichneten, gleichmäßig verteilten Punkten</p>
+<p style="font-size:35px; font-family:Times New Roman; color:#000099; text-align: justify;">Wenn man das Verhältnis errechnet hat, kann man daraus ganz einfach Pi berechnen. Die Formel für den Flächeninhalt eines Kreises ist "A = π*r<sup>2</sup>". Wenn man den Radius r als 1 definiert, kürzt sich der Radius weg. Es bleibt: "A = π" Wenn man um diesen Kreis nun ein Quadrat zeichnet, das den Kreis mit der Mitte jeder Kante berührt, hat dieses Quadrat aufgrund des Radius des Kreises von 1 (also einem Durchmesser von 2) eine Seitenlänge von 2. Mit dem daraus resultierenden Flächeninhalt von 4 und dem bereits ausgerechneten Verhältnis der zufälligen Punkte kann man nun den Flächeninhalt berechnen; und damit auch Pi.</p>
+</div>
+
+
+
+<div id="Infooutput2" style="display:none;"> <br> <br> <br> <br> <br> <br> <br>
+
+<h3 style="font-size:60px; font-family:Times New Roman; color:#000099;">Das ist π:</h3>
+<p style="font-size:35px; font-family:Times New Roman; color:#000099; text-align: justify;">Die Zahl Pi ist in der Mathematik eine wichtige Zahl. Sie wird auch "Kreiszahl" genannt und gehört zu den irrationalen Zahlen, das heißt, dass Pi unendlich viele Nachkommastellen hat. Somit ist es unmöglich, Pi komplett zu kennen, da man niemals alle Nachkommastellen herausfinden kann. Den aktuellen Weltrekord der meisten berrechneten Stellen hält Google. Das Unternehmen hat mit der gewaltigen Rechenleistung seiner Server 100.000.000.000.000 Stellen berechnet.</p> 
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/01_Kreiszahl.svg/400px-01_Kreiszahl.svg.png" alt="Hier sollte eine entsprechende Grafik sein!" height="132" width="630">
+<p style="font-size:20px; font-family:Times New Roman; color:#000099;">Darstellung der ersten Nachkommastellen von Pi</p>
+<p style="font-size:35px; font-family:Times New Roman; color:#000099; text-align: justify;">Vor allem ist Pi in der Geometrie wichtig. Wie der Name "Kreiszahl" schon vermuten lässt, hat Pi vieles mit einem Kreis zu tun. Mit den Formeln "U = 2π*r" und "A = π*r<sup>2</sup>" kann man Umfang und Flächeninhalt eines Kreises berechnen (siehe Bild). Mit ähnlichen Formeln funktioniert das Ganze auch am dreidimensionalen Kreis: Der Kugel.</p>
+<img src="https://d1u2r2pnzqmal.cloudfront.net/videos/pictures/23187/normal/23187thumb.jpg?1581417327" alt="Hier sollte eine entsprechende Grafik sein!" height="550" width="900">
+<p style="font-size:20px; font-family:Times New Roman; color:#000099;">Darstellung zu Berechnungen am Kreis</p>
+<p style="font-size:35px; font-family:Times New Roman; color:#000099; text-align: justify;">Außerdem lassen sich Winkel im sogenannten "Bogenmaß" angeben. Hierbei entspricht π genau 180°.</p>
+<img src="https://d1g9li960vagp7.cloudfront.net/wp-content/uploads/2021/01/breit2-1024x459.png" alt="Hier sollte eine entsprechende Grafik sein!" height="400" width="900">
+<p style="font-size:20px; font-family:Times New Roman; color:#000099;">Darstellung des Bogenmaß in Vergleich zum Gradmaß</p>
+</div>
+
+</div> <br> <br> <br> <br> <br> <br> <br>
+
+
+
+
+
+
+
+
+
+
+<!-- Pikasten -->
+<div style="width:90%; height:600px; background-color:#99ffac; border-style:double; padding-right:20px; padding-left:20px; border-radius:20px; border-color:red;" id="PiKasten">
+<h3 style="font-size:60px; font-family:Times New Roman; position:relative; top:-30px;"><u>Berechne hier π!</u></h3>
+<p style="font-size:30px; font-family:Times New Roman; position:relative; top:-30px;"><i>Gib die Genauigkeitsstufe an! Umso höher die Stufe, desto höher die Genauigkeit. Aber Achtung: Umso höher die Genauigkeit, desto länger und aufwändiger die Rechenleistung deines Rechners!</i></p>
+<p style="font-size:50px; font-family:Times New Roman; position:relative; top:-30px;">Genauigkeitsstufe: 
+<input id="Input" onkeyup="UeberpruefeInput()" value="10" size="6" style="text-align: center; font-size:30px; padding: 12px 20px; border-radius: 4px;"></p> 
+<button onclick="berechnePi()" class="button">Berechne!</button>
+<p id="Output" style="font-size:50px; font-family:Times New Roman;"></p>
+</div> <br> <br> <br> <br> <br> <br> <br>
+
+
+
+
+
+
+
+
+
+
+<!-- Rechenkasten -->
+<div style="width:90%; height:800px; background-color:#99ff6c; border-style:double; padding-right:20px; padding-left:20px; border-radius:20px; border-color:red; display:none;" id="RechenKasten">
+<h3 style="font-size:60px; font-family:Times New Roman; position:relative; top:-30px;"><u>Benutze dein berechnetes π!</u></h3>
+<p style="font-size:30px; font-family:Times New Roman; position:relative; top:-30px;"><i>Wähle aus, was du nun mit deinem eben berechneten Pi-Wert ausrechnen möchtest!</i></p>
+<p style="font-size:50px; font-family:Times New Roman; position:relative; top:-30px;">Ich möchte
+<select id="Selectbox" style="font-family:Times New Roman; text-align: center; font-size:30px; padding: 12px 20px; border-radius: 4px; text-align: justify;">
+    <option value="1">den Umfang eines Kreises</option>
+    <option value="2">den Flächeninhalt eines Kreises</option>
+    <option value="3">den Oberflächeninhalt einer Kugel</option>
+    <option value="4">das Volumen einer Kugel</option>
+</select> berechnen.</p>
+<p style="font-size:50px; font-family:Times New Roman; position:relative; top:-30px;">Radius des Körpers: <input id="Rechnungsinput" onkeyup="UeberpruefeInput2()" value="10" size="6" style="text-align: center; font-size:30px; padding: 12px 20px; border-radius: 4px;"> <select id="Selectbox2" style="font-family:Times New Roman; text-align: center; font-size:30px; padding: 12px 20px; border-radius: 4px; text-align: justify;">
+    <option value="1">mm</option>
+    <option value="2" selected>cm</option>
+    <option value="3">m</option>
+    <option value="4">km</option></select></p>
+<button onclick="berechneWeiter()" class="button">Berechne!</button>
+<p id="Output2" style="font-size:50px; font-family:Times New Roman;"></p>
+</div>
+
+
+
+
+
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+
+</center>
+</body>
+
+
+
+
+
+
+</html>
